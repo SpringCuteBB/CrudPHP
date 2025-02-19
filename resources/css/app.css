@@ -21,3 +21,36 @@ body {
 .roboto-condensed {
     font-family: "Roboto Condensed", sans-serif !important;
 }
+
+@keyframes show {
+    from {
+        transform: translate(0, 100%);
+    }
+    to {
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes hide {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(0, 100%);
+    }
+}
+
+.filters {
+    display: none;
+    animation-duration: 0.5s;
+}
+
+.filters.show {
+    display: flex;
+    animation-name: show;
+}
+
+.filters.hide {
+    display: flex;
+    animation-name: hide;
+}

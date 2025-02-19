@@ -49,9 +49,9 @@
             @endauth
         </div>
     </div>
-    <div
-        class="xl:col-span-10 md:col-span-8 h-12 col-span-12 bg-gray-50 border border-gray-200 border-l-0 flex items-center px-4">
-        <a href="{{ route('controlPanel') }}"> {{ __('Control Panel') }}</a>
-        {{-- <x-svgs.arrow-svg /> --}}
-    </div>
+    @if (Route::currentRouteName() == 'createNewOffer')
+        <x-mine.route-createNewOffer />
+    @else
+        <x-mine.route-controlPanel />
+    @endif
 </nav>

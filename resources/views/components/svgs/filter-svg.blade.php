@@ -5,6 +5,7 @@
     viewBox="0 0 16 16"
     fill="currentColor"
     class="w-4 h-4 fill-gray-500 hover:cursor-pointer hover:text-gray-700 transition-all"
+    id="filterButton"
 >
     <path d="M0 3H16V1H0V3Z" />
     <path d="M2 7H14V5H2V7Z" />
