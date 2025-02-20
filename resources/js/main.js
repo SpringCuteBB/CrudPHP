@@ -53,13 +53,16 @@ document.addEventListener("DOMContentLoaded", () => {
         data.data.forEach((offer) => {
             const row = document.createElement("tr");
             row.classList.add("hover:bg-gray-100", "hover:cursor-pointer");
+            row.addEventListener("click", () => {
+                window.location.href = `/edit/${offer.id}`;
+            });
             row.innerHTML = `
-                <td class="py-2 px-4 border border-gray-200 text-center">${offer.id}</td>
-                <td class="py-2 px-4 border border-gray-200">${offer.titulo}</td>
+                <td class="py-2 px-4 border border-gray-200 text-center hidden xl:table-cell">${offer.id}</td>
+                <td class="py-2 px-4 border border-gray-200 ">${offer.titulo}</td>
                 <td class="py-2 px-4 border border-gray-200">${offer.cadena}</td>
-                <td class="py-2 px-4 border border-gray-200">${offer.tipo_oferta}</td>
-                <td class="py-2 px-4 border border-gray-200">${offer.fecha_inicio}</td>
-                <td class="py-2 px-4 border border-gray-200">${offer.fecha_fin}</td>
+                <td class="py-2 px-4 border border-gray-200 hidden xl:table-cell">${offer.tipo_oferta}</td>
+                <td class="py-2 px-4 border border-gray-200 hidden xl:table-cell">${offer.fecha_inicio}</td>
+                <td class="py-2 px-4 border border-gray-200 hidden xl:table-cell">${offer.fecha_fin}</td>
                 <td class="py-2 px-4 border border-gray-200">${offer.usuario}</td>
             `;
             tbody.appendChild(row);

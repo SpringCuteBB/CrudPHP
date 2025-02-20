@@ -1,4 +1,4 @@
-<div class="flex flex-col pt-[4.6rem] px-20">
+<div class="flex flex-col pt-[4.6rem] px-5 xl:px-20 md:px-10">
     <h1 class="roboto-condensed font-bold text-5xl">CrudPHP</h1>
     <p class="pt-[3rem] pb-[2rem]">
         CrudPHP is a personal project by <span class="font-bold">Ismael Valenzuela Mañas</span>. This project
@@ -13,24 +13,24 @@
         <img src="spinner.gif" class="w-5 h-5" id="spinner" alt="" style="display: none" />
     </div>
 
-    <div class="grid grid-cols-2 mb-3 h-[48px]">
-        <div class="span-col-1 flex justify-start gap-1">
+    <div class="grid grid-cols-1 xl:grid-cols-2 mb-3 gap-1 xl:gap-0 xl:h-[48px]">
+        <div class="flex justify-start gap-1">
             <input type="text" name="search" placeholder="Type here..." id="search"
                 class="w-[80%] p-2 border border-gray-200 rounded-md" />
             <input type="button" value="Search" id="searchButton"
-                class="bg-gray-200 text-gray-500 font-bold h-full px-6 rounded-md hover:cursor-pointer hover:bg-gray-300 transition-all" />
+                class="bg-gray-200 text-gray-500 font-bold h-full w-[20%] xl:w-[100px] px-0 xl:px-6 rounded-md hover:cursor-pointer hover:bg-gray-300 transition-all" />
         </div>
-        <div class="span-col-1 flex justify-end gap-5 items-center overflow-hidden">
-            <div id="filters" class="filters overflow-hidden flex gap-2">
+        <div class="justify-end gap-5 items-center overflow-hidden hidden xl:flex">
+            <div id="filters" class="filters flex gap-2 h-[50px]">
                 <div class="flex flex-col">
                     <label for="startDate" class="text-sm">Start Date:</label>
                     <input type="date" name="startDate" id="startDate"
-                        class="border border-gray-900 h-[1.7rem] rounded-md" />
+                        class="border border-gray-900 h-[1.7rem] w-[100px] 2xl:w-[142px] rounded-md" />
                 </div>
                 <div class="flex flex-col">
                     <label for="endDate" class="text-sm">End Date:</label>
                     <input type="date" name="endDate" id="endDate"
-                        class="border border-gray-900 h-[1.7rem] rounded-md" />
+                        class="border border-gray-900 h-[1.7rem] rounded-md w-[100px] 2xl:w-[142px]" />
                 </div>
                 <div class="flex flex-col">
                     <label for="type" class="text-sm">Type:</label>
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <x-svgs.filter-svg />
-            <a class="bg-gray-900 py-2 px-4 rounded-md text-white font-bold hover:cursor-pointer hover:bg-gray-800 transition-all"
+            <a class="bg-gray-900 py-2 px-4 rounded-md text-white font-bold hover:cursor-pointer hover:bg-gray-800 text-sm hidden 3xl:flex transition-all"
                 href="{{ route('createNewOffer') }}">
                 <span class="mr-2">+</span>
                 Create offer
@@ -53,17 +53,16 @@
         <table class="min-w-full bg-white">
             <thead class="bg-gray-200 text-gray-500">
                 <tr>
-                    <th class="py-2 px-4 border-b border-gray-200 rounded-tl-md">
+                    <th class="py-2 px-4 border-b border-gray-200 rounded-tl-md hidden xl:table-cell">
                         ID
                     </th>
-                    <th class="py-2 px-4 border-b border-gray-200">Title</th>
+                    <th class="py-2 px-4 border-b border-gray-200 rounded-tl-md xl:rounded-none ">Title</th>
                     <th class="py-2 px-4 border-b border-gray-200">Company</th>
-                    <th class="py-2 px-4 border-b border-gray-200">Type</th>
-
-                    <th class="py-2 px-4 border-b border-gray-200">
+                    <th class="py-2 px-4 border-b border-gray-200 hidden xl:table-cell">Type</th>
+                    <th class="py-2 px-4 border-b border-gray-200 hidden xl:table-cell">
                         Start date
                     </th>
-                    <th class="py-2 px-4 border-b border-gray-200">End date</th>
+                    <th class="py-2 px-4 border-b border-gray-200 hidden xl:table-cell">End date</th>
                     <th class="py-2 px-4 border-b border-gray-200 rounded-tr-md">
                         Creator
                     </th>

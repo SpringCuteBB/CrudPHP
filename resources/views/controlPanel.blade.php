@@ -15,7 +15,7 @@
         <aside class="xl:col-span-2 md:col-span-4 col-span-12 border border-gray-200 bg-gray-100 flex w-full">
             <x-mine.sidebar />
         </aside>
-        <main class="xl:col-span-10 md:col-span-8">
+        <main class="xl:col-span-10 md:col-span-8 col-span-12 md:w-full">
             <x-pages.home />
         </main>
     </div>

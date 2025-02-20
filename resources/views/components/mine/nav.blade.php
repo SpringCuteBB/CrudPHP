@@ -5,7 +5,9 @@
         <div class="flex items-center mr-2">
             @guest
                 <button class="mr-3 text-gray-900 hover:text-[#fe136d] transition-all underline"
-                    onclick="window.location.href='{{ route('register') }}'">Register</button>
+                    onclick="window.location.href='{{ route('register') }}'">
+                    Register
+                </button>
                 <button
                     class="bg-gray-900 hover:bg-[#fe136d] transition-all text-white rounded-md py-1 px-4 flex items-center"
                     onclick="window.location.href='{{ route('login') }}'">
@@ -18,8 +20,12 @@
                 <x-dropdown align="right" width="28">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <div>Hello, <span class="text-[#fe136d] font-bold uppercase">{{ Auth::user()->name }}</span>
+                            class="inline-flex items-center py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            <div>
+                                Hello,
+                                <span class="text-[#fe136d] font-bold uppercase">
+                                    {{ Auth::user()->name }}
+                                </span>
                             </div>
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -51,6 +57,8 @@
     </div>
     @if (Route::currentRouteName() == 'createNewOffer')
         <x-mine.route-createNewOffer />
+    @elseif (Route::currentRouteName() == 'viewOffer' || Route::currentRouteName() == 'editOffer')
+        <x-mine.route-individualOffer :offer="$offer" />
     @else
         <x-mine.route-controlPanel />
     @endif

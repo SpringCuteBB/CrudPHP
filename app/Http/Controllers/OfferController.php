@@ -58,6 +58,80 @@ class OfferController extends Controller
             return $query->get();
         }
     }
+    public function showOnly($id){ 
+        try {
+            $offer = Offer::findOrFail($id);
+            return response()->json($offer, 200);
+        } catch (\Exception $e) {
+            Log::error('Error fetching offer: ' . $e->getMessage());
+            return response()->json(['message' => 'Offer not found'], 404);
+        }
+    }
+    public function show($id)
+    {
+        $offer = Offer::find($id);
+
+        if (!$offer) {
+            return redirect()->route('viewOffers')->with('error', 'Offer not found');
+        }
+
+        return view('viewOffer', compact('offer'));
+    }
+    public function edit($id)
+    {
+        $offer = Offer::find($id);
+
+        if (!$offer) {
+            return redirect()->route('viewOffers')->with('error', 'Offer not found');
+        }
+
+        return view('editOffer', compact('offer'));
+    }
+
+        public function update(Request $request, $id)
+    {
+        $request->validate([
+            'titulo' => 'required|string|max:75',
+            'descripcion' => 'required|string|max:150',
+            'tipo_oferta' => 'required|in:descuento,cupon',
+            'codigo_cupon' => 'nullable|string|max:11',
+            'cadena' => 'required|string|max:50',
+            'provincia' => 'required|string|max:75|regex:/^[^\d]*$/',
+            'fecha_inicio' => 'required|date|after_or_equal:today',
+            'fecha_fin' => 'required|date|after:fecha_inicio',
+            'precio_original' => 'required|numeric',
+            'precio_descuento' => 'required|numeric|lt:precio_original',
+            'enlace' => 'required|url|regex:/^https?:\/\/www\./',
+        ]);
+
+        $offer = Offer::findOrFail($id);
+        $offer->titulo = $request->input('titulo');
+        $offer->descripcion = $request->input('descripcion');
+        $offer->tipo_oferta = $request->input('tipo_oferta');
+        $offer->codigo_cupon = $request->input('tipo_oferta') === 'cupon' ? $request->input('codigo_cupon') : 'No cupon';
+        $offer->cadena = $request->input('cadena');
+        $offer->provincia = $request->input('provincia');
+        $offer->fecha_inicio = $request->input('fecha_inicio');
+        $offer->fecha_fin = $request->input('fecha_fin');
+        $offer->precio_original = $request->input('precio_original');
+        $offer->precio_descuento = $request->input('precio_descuento');
+        $offer->enlace = $request->input('enlace');
+        $offer->save();
+
+        return response()->json(['message' => 'Offer updated successfully'], 200);
+    }
+
+    public function destroy($id)
+    {
+        try {
+            $offer = Offer::findOrFail($id);
+            $offer->delete();
+            return response()->json(['message' => 'Offer deleted successfully'], 200);
+        } catch (\Exception $e) {
+            Log::error('Error deleting offer: ' . $e->getMessage());
+            return response()->json(['message' => 'Failed to delete offer'], 500);
+        }
+    }
 
     public function store(Request $request)
     {
@@ -97,49 +171,3 @@ class OfferController extends Controller
         return response()->json(['message' => 'Offer created successfully'], 201);
     }
 }
-
-    //     $request->validate([
-    //         'titulo' => 'required|string|max:75',
-    //         'descripcion' => 'required|string|max:150',
-    //         'tipo_oferta' => 'required|in:descuento,cupon',
-    //         'codigo_cupon' => 'nullable|string|max:11',
-    //         'cadena' => 'required|string|max:50',
-    //         'provincia' => 'required|string|max:75|regex:/^[^\d]*$/',
-    //         'fecha_inicio' => 'required|date|after_or_equal:today',
-    //         'fecha_fin' => 'required|date|after:fecha_inicio',
-    //         'precio_original' => 'required|numeric',
-    //         'precio_descuento' => 'required|numeric|lt:precio_original',
-    //         'enlace' => 'required|url|regex:/^https?:\/\/www\./',
-    //     ]);
-
-    //     $usuario = Auth::user()->name;
-
-    //     $data = [
-    //         'titulo' => $request->titulo,
-    //         'descripcion' => $request->descripcion,
-    //         'tipo_oferta' => $request->tipo_oferta,
-    //         'codigo_cupon' => $request->tipo_oferta === 'cupon' ? $request->codigo_cupon : 'No cupon',
-    //         'cadena' => $request->cadena,
-    //         'provincia' => $request->provincia,
-    //         'fecha_inicio' => $request->fecha_inicio,
-    //         'fecha_fin' => $request->fecha_fin,
-    //         'precio_original' => $request->precio_original,
-    //         'precio_descuento' => $request->precio_descuento,
-    //         'enlace' => $request->enlace,
-    //         'usuario' => $usuario,
-    //         'created_at' => now()->toISOString(),
-    //         'updated_at' => now()->toISOString(),
-    //     ];
-
-    //     Log::info('Sending data to API:', $data);
-
-    //     $response = Http::post('http://127.0.0.1:8000/api/offers', $data);
-    //     Log::info('API response:', $response->json());
-
-
-    //     if ($response->successful()) {
-    //         return redirect()->route('createNewOffer')->with('success', 'Offer created successfully!');
-    //     } else {
-    //         return redirect()->route('createNewOffer')->with('error', 'Failed to create offer.');
-    //     }
-    // }
